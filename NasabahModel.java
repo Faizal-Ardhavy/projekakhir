@@ -51,26 +51,26 @@ public class NasabahModel {
     }
     
     
-    public void addNasabah(Perusahaan perushaan) throws SQLException{
+    public void addNasabah(Perusahaan perusahaan) throws SQLException{
         String insertNasabah="INSERT INTO Nasabah(id_nasabah, nama,alamat)" + "VALUES(?,?,?)";
-        String insertPerushaan="INSERT INTO Perushaan(id_nasabah, nib)" + "VALUES(?,?)";
+        String insertPerusahaan="INSERT INTO Perusahaan(id_nasabah, nib)" + "VALUES(?,?)";
         String insertRekening="INSERT INTO Rekening(noRekening, saldo, id_nasabah)" + "VALUES(?,?,?)";
         
         PreparedStatement stmtNasabah = conn.prepareStatement(insertNasabah);
-        stmtNasabah.setInt(1, perushaan.getId_nasabah());
-        stmtNasabah.setString(2, perushaan.getNama());
-        stmtNasabah.setString(3, perushaan.getAlamat());
+        stmtNasabah.setInt(1, perusahaan.getId_nasabah());
+        stmtNasabah.setString(2, perusahaan.getNama());
+        stmtNasabah.setString(3, perusahaan.getAlamat());
         stmtNasabah.execute();
         
-        PreparedStatement stmtPerushaan = conn.prepareStatement(insertPerushaan);
-        stmtPerushaan.setInt(1, perushaan.getId_nasabah());
-        stmtPerushaan.setString(2, perushaan.getNib());
-        stmtPerushaan.execute();
+        PreparedStatement stmtPerusahaan = conn.prepareStatement(insertPerusahaan);
+        stmtPerusahaan.setInt(1, perusahaan.getId_nasabah());
+        stmtPerusahaan.setString(2, perusahaan.getNib());
+        stmtPerusahaan.execute();
         
         PreparedStatement stmtRekening = conn.prepareStatement(insertRekening);
-        stmtRekening.setInt(1, perushaan.getRekening().get(0).getNoRekening());
-        stmtRekening.setDouble(2, perushaan.getRekening().get(0).getSaldo());
-        stmtRekening.setInt(3, perushaan.getId_nasabah());
+        stmtRekening.setInt(1, perusahaan.getRekening().get(0).getNoRekening());
+        stmtRekening.setDouble(2, perusahaan.getRekening().get(0).getSaldo());
+        stmtRekening.setInt(3, perusahaan.getId_nasabah());
         stmtRekening.execute();
     }
     
@@ -121,7 +121,7 @@ public class NasabahModel {
        return data;
    }
     
-    public ObservableList<Rekening> getRekenings(int id_nasabah){
+    public ObservableList<Rekening> getRekening(int id_nasabah){
        ObservableList<Rekening> data = FXCollections.observableArrayList();
        String sql="SELECT `noRekening`, `saldo` "
                + "FROM `Rekening` "
@@ -156,11 +156,11 @@ public class NasabahModel {
    public void addRekening(int id_nasabah, Rekening acc) throws SQLException{
        String insertRekening = "INSERT INTO Rekening (noRekening, saldo, id_nasabah)" + " VALUES (?,?,?)";
  
-       PreparedStatement stmtPerusahaan = conn.prepareStatement(insertRekening);
-       stmtPerusahaan.setInt(1, acc.getNoRekening());
-       stmtPerusahaan.setDouble(2, acc.getSaldo());
-       stmtPerusahaan.setInt(3, id_nasabah);
-       stmtPerusahaan.execute();
+       PreparedStatement stmtNasabah = conn.prepareStatement(insertRekening);
+       stmtNasabah.setInt(1, acc.getNoRekening());
+       stmtNasabah.setDouble(2, acc.getSaldo());
+       stmtNasabah.setInt(3, id_nasabah);
+       stmtNasabah.execute();
        
    }
     
