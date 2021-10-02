@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -20,13 +14,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-/**
- *
- * @author Lenovo
- */
 public class NasabahController implements Initializable {
     
-         @FXML
+    @FXML
     private TextField tfId_nasabah;
 
     @FXML
@@ -37,6 +27,9 @@ public class NasabahController implements Initializable {
 
     @FXML
     private TextField tfnik;
+    
+    @FXML
+    private TextField tfnpwp;
 
     @FXML
     private TextField tfnomorrekening;
@@ -45,16 +38,10 @@ public class NasabahController implements Initializable {
     private TextField tfsaldo;
 
     @FXML
-    private Button btntambahnasabah;
-
-    @FXML
     private Button btnperbaruidata;
 
     @FXML
     private Button btnhapusdata;
-
-    @FXML
-    private TextField tfnpwp;
 
     @FXML
     private TableView<Individu> tblnasabah;
@@ -94,7 +81,9 @@ public class NasabahController implements Initializable {
 
     @FXML
     private Button btnnewrekening;
-
+    
+    
+    //perusahaan
     @FXML
     private TextField tfId_nasabah1;
 
@@ -114,38 +103,34 @@ public class NasabahController implements Initializable {
     private TextField tfsaldo1;
 
     @FXML
-    private Button btntambahnasabah1;
-
-    @FXML
     private Button btnperbaruidata1;
 
     @FXML
     private Button btnhapusdata1;
 
     @FXML
-    private TableView<?> tblnasabah1;
+    private TableView<Perusahaan> tblnasabah1;
 
     @FXML
-    private TableColumn<?, ?> colid_nasabah1;
+    private TableColumn<Perusahaan, String> colid_nasabah1;
 
     @FXML
-    private TableColumn<?, ?> colnama1;
+    private TableColumn<Perusahaan, String> colnama1;
 
     @FXML
-    private TableColumn<?, ?> colalamat1;
-
+    private TableColumn<Perusahaan, String> colalamat1;
+    
+    @FXML
+    private TableColumn<Perusahaan, String> colnib1;
+    
+    @FXML
+    private TableView<Rekening> tblrekening1;
+    
+    @FXML
+    private TableColumn<Rekening, Integer> colnomorRekening1;
 
     @FXML
-    private TableColumn<?, ?> colnik1;
-
-    @FXML
-    private TableView<?> tblrekening1;
-
-    @FXML
-    private TableColumn<?, ?> colnomorRekening1;
-
-    @FXML
-    private TableColumn<?, ?> colsaldo1;
+    private TableColumn<Rekening, Double> colsaldo1;
 
     @FXML
     private TextField tfnewid_nasabah1;
@@ -162,7 +147,7 @@ public class NasabahController implements Initializable {
     @FXML
     private Label statusDB;
     
-     private NasabahModel model;
+    private NasabahModel model;
     
     @FXML
     void handleAddNasabahBTN(ActionEvent event) {
@@ -183,7 +168,18 @@ public class NasabahController implements Initializable {
 
     @FXML
     void handleAddNasabahBTN1(ActionEvent event) {
-
+        Perusahaan p = new Perusahaan(tfnib1.getText(),
+            Integer.parseInt(tfId_nasabah1.getText()),
+            tfnama1.getText(),
+            new Rekening(Integer.parseInt(tfnomorrekening1.getText()), Double.parseDouble(tfsaldo1.getText())),
+            tfalamat1.getText());
+        try {
+            model.addNasabah(p);
+            btnperbaruidata1.fire();
+            btnhapusdata1.fire();
+        } catch (SQLException ex) {
+            Logger.getLogger(NasabahController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -204,7 +200,18 @@ public class NasabahController implements Initializable {
 
     @FXML
     void handleAddNewNasabahBTN1(ActionEvent event) {
-
+        try {
+            Rekening rek =  new Rekening(Integer.parseInt(tfnewnomorrekening1.getText()),
+                            Double.parseDouble(tfnewsaldo1.getText()));
+            
+            model.addRekening(Integer.parseInt(tfnewid_nasabah.getText()), rek);          
+            viewDataRekening1(Integer.parseInt(tfnewid_nasabah.getText()));
+            btnperbaruidata1.fire();
+            tfnewsaldo1.setText("");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(NasabahController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -224,7 +231,16 @@ public class NasabahController implements Initializable {
 
     @FXML
     void handleClearDataBTN1(ActionEvent event) {
-
+        try {
+            tfId_nasabah1.setText("" + model.nextIdNasabah());
+            tfnomorrekening1.setText(tfId_nasabah1.getText() + "01");
+            tfnama1.setText("");
+            tfalamat1.setText("");
+            tfnib1.setText("");
+            tfsaldo1.setText("");
+        } catch (SQLException ex) {
+            Logger.getLogger(NasabahController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -242,7 +258,14 @@ public class NasabahController implements Initializable {
 
     @FXML
     void handleReloadDataBTN1(ActionEvent event) {
-
+        ObservableList<Perusahaan> data = model.getPerusahaan();
+        colid_nasabah1.setCellValueFactory(new PropertyValueFactory<>("id_nasabah"));
+        colnama1.setCellValueFactory(new PropertyValueFactory<>("nama"));
+        colalamat1.setCellValueFactory(new PropertyValueFactory<>("alamat"));
+        colnib1.setCellValueFactory(new PropertyValueFactory<>("nib"));
+        tblnasabah1.setItems(null);
+        tblnasabah1.setItems(data);
+        btnnewrekening1.setDisable(true);
     }
     
     @Override
@@ -252,8 +275,8 @@ public class NasabahController implements Initializable {
             statusDB.setText(model.conn == null ? "Not Connected" : "Connected");
             btnhapusdata.fire();
             btnperbaruidata.fire();
-//            btnhapusdata1.fire();
-//            btnperbaruidata1.fire();
+            btnhapusdata1.fire();
+            btnperbaruidata1.fire();
         } catch (SQLException ex) {
             Logger.getLogger(NasabahController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -273,15 +296,39 @@ public class NasabahController implements Initializable {
                 }
             }
         });
+        
+        tblnasabah1.getSelectionModel().selectedIndexProperty().addListener(listener->{
+            if (tblnasabah1.getSelectionModel().getSelectedItem() != null){
+                Perusahaan p =  tblnasabah1.getSelectionModel().getSelectedItem();
+                viewDataRekening1(p.getId_nasabah());
+                
+                btnnewrekening1.setDisable(false);
+                tfnewid_nasabah1.setText("" + p.getId_nasabah());
+                try {
+                    tfnewnomorrekening1.setText("" + model.nextRekeningNumber(p.getId_nasabah()));
+                } catch (SQLException ex) {
+                    Logger.getLogger(NasabahController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }    
     
     //individu
     public void viewDataRekening(int idNasabah){
-        ObservableList<Rekening> data = model.getRekenings(idNasabah);
+        ObservableList<Rekening> data = model.getRekening(idNasabah);
         colnomorRekening.setCellValueFactory(new PropertyValueFactory<>("noRekening"));
         colsaldo.setCellValueFactory(new PropertyValueFactory<>("saldo"));
         tblrekening.setItems(null);
         tblrekening.setItems(data);
+    }
+    
+    //perusahaan
+    public void viewDataRekening1(int idNasabah){
+        ObservableList<Rekening> data = model.getRekening(idNasabah);
+        colnomorRekening1.setCellValueFactory(new PropertyValueFactory<>("noRekening"));
+        colsaldo1.setCellValueFactory(new PropertyValueFactory<>("saldo"));
+        tblrekening1.setItems(null);
+        tblrekening1.setItems(data);
     }
     
 }
