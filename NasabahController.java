@@ -204,8 +204,8 @@ public class NasabahController implements Initializable {
             Rekening rek =  new Rekening(Integer.parseInt(tfnewnomorrekening1.getText()),
                             Double.parseDouble(tfnewsaldo1.getText()));
             
-            model.addRekening(Integer.parseInt(tfnewid_nasabah.getText()), rek);          
-            viewDataRekening1(Integer.parseInt(tfnewid_nasabah.getText()));
+            model.addRekening(Integer.parseInt(tfnewid_nasabah1.getText()), rek);          
+            viewDataRekening1(Integer.parseInt(tfnewid_nasabah1.getText()));
             btnperbaruidata1.fire();
             tfnewsaldo1.setText("");
             
