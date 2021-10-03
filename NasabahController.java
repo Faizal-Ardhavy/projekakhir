@@ -82,6 +82,15 @@ public class NasabahController implements Initializable {
     @FXML
     private Button btnnewrekening;
     
+    @FXML
+    private TextField tfjml;
+    
+    @FXML
+    private Button btndepo;
+    
+    @FXML
+    private Button btnwd;
+    
     
     //perusahaan
     @FXML
@@ -143,6 +152,15 @@ public class NasabahController implements Initializable {
 
     @FXML
     private Button btnnewrekening1;
+    
+    @FXML
+    private TextField tfjml1;
+    
+    @FXML
+    private Button btndepo1;
+    
+    @FXML
+    private Button btnwd1;
 
     @FXML
     private Label statusDB;
@@ -266,6 +284,63 @@ public class NasabahController implements Initializable {
         tblnasabah1.setItems(null);
         tblnasabah1.setItems(data);
         btnnewrekening1.setDisable(true);
+    }
+        @FXML
+    void handleDepositBTN(ActionEvent event) {
+        Rekening rek = tblrekening.getSelectionModel().getSelectedItem();
+         try {
+             model.addSaldo(rek, Double.parseDouble(tfjml.getText()));
+             btnperbaruidata.fire();
+             viewDataRekening(Integer.parseInt(tfnewid_nasabah.getText()));
+             tfjml.setText("");
+         } catch (SQLException ex) {
+             Logger.getLogger(NasabahController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+    @FXML
+    void handleWithdrawBTN(ActionEvent event) {
+        Rekening rek = tblrekening.getSelectionModel().getSelectedItem();
+        
+        if (rek.getSaldo() >= Double.parseDouble(tfjml.getText())){
+            try {
+                model.wdSaldo(rek, Double.parseDouble(tfjml.getText()));
+                btnperbaruidata.fire();
+                viewDataRekening(Integer.parseInt(tfnewid_nasabah.getText()));
+                tfjml.setText("");
+            } catch (SQLException ex) {
+                Logger.getLogger(NasabahController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    @FXML
+    void handleDepositBTN1(ActionEvent event) {
+        Rekening rek = tblrekening1.getSelectionModel().getSelectedItem();
+         try {
+             model.addSaldo(rek, Double.parseDouble(tfjml1.getText()));
+             btnperbaruidata1.fire();
+             viewDataRekening1(Integer.parseInt(tfnewid_nasabah1.getText()));
+             tfjml1.setText("");
+         } catch (SQLException ex) {
+             Logger.getLogger(NasabahController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+
+    @FXML
+    void handleWithdrawBTN1(ActionEvent event) {
+        Rekening rek = tblrekening1.getSelectionModel().getSelectedItem();
+        
+        if (rek.getSaldo() >= Double.parseDouble(tfjml1.getText())){
+            try {
+                model.wdSaldo(rek, Double.parseDouble(tfjml1.getText()));
+                btnperbaruidata1.fire();
+                viewDataRekening1(Integer.parseInt(tfnewid_nasabah1.getText()));
+                tfjml1.setText("");
+            } catch (SQLException ex) {
+                Logger.getLogger(NasabahController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     @Override
