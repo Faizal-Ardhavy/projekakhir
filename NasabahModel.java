@@ -163,5 +163,26 @@ public class NasabahModel {
        stmtNasabah.execute();
        
    }
+   public void addSaldo(Rekening rek, double jumlah) throws SQLException{
+        String insertNasabah = "UPDATE Rekening "
+                + "SET saldo = ? "
+                + "WHERE noRekening = ?";
+        
+        PreparedStatement stmtNasabah = conn.prepareStatement(insertNasabah);
+        stmtNasabah.setDouble(1, (rek.getSaldo() + jumlah));
+        stmtNasabah.setInt(2, rek.getNoRekening());
+        stmtNasabah.execute();
+    }
+    
+    public void wdSaldo(Rekening rek, double jumlah) throws SQLException{
+        String insertNasabah = "UPDATE Rekening "
+                + "SET saldo = ? "
+                + "WHERE noRekening = ?";
+        
+        PreparedStatement stmtNasabah = conn.prepareStatement(insertNasabah);
+        stmtNasabah.setDouble(1, (rek.getSaldo() - jumlah));
+        stmtNasabah.setInt(2, rek.getNoRekening());
+        stmtNasabah.execute();
+    }
     
 }
