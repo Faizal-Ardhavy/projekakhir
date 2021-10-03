@@ -111,10 +111,13 @@
                                                       </AnchorPane>
                                                       <AnchorPane prefHeight="260.0" prefWidth="415.0">
                                                          <children>
-                                                            <TextField fx:id="tfnewid_nasabah" disable="true" layoutX="67.0" layoutY="29.0" prefHeight="31.0" prefWidth="278.0" promptText="ID NASABAH" />
-                                                            <TextField fx:id="tfnewnomorrekening" disable="true" layoutX="67.0" layoutY="77.0" prefHeight="31.0" prefWidth="278.0" promptText="NOMOR REKENIG BARU" />
-                                                            <TextField fx:id="tfnewsaldo" layoutX="67.0" layoutY="130.0" prefHeight="31.0" prefWidth="278.0" promptText="SALDO REKENIG BARU" />
-                                                            <Button fx:id="btnnewrekening" layoutX="67.0" layoutY="186.0" mnemonicParsing="false" onAction="#handleAddNewNasabahBTN" prefHeight="31.0" prefWidth="278.0" text="Tambah Rekening Baru" />
+                                                            <TextField fx:id="tfnewid_nasabah" disable="true" layoutX="14.0" layoutY="36.0" prefHeight="31.0" prefWidth="195.0" promptText="ID NASABAH" />
+                                                            <TextField fx:id="tfnewnomorrekening" disable="true" layoutX="14.0" layoutY="84.0" prefHeight="31.0" prefWidth="195.0" promptText="NOMOR REKENIG BARU" />
+                                                            <TextField fx:id="tfnewsaldo" layoutX="14.0" layoutY="137.0" prefHeight="31.0" prefWidth="195.0" promptText="SALDO REKENIG BARU" />
+                                                            <Button fx:id="btnnewrekening" layoutX="14.0" layoutY="193.0" mnemonicParsing="false" onAction="#handleAddNewNasabahBTN" prefHeight="31.0" prefWidth="195.0" text="Tambah Rekening Baru" />
+                                                            <Button fx:id="btndepo" layoutX="224.0" layoutY="137.0" mnemonicParsing="false" onAction="#handleDepositBTN" prefHeight="31.0" prefWidth="181.0" text="Deposit" />
+                                                            <Button fx:id="btnwd" layoutX="224.0" layoutY="193.0" mnemonicParsing="false" onAction="#handleWithdrawBTN" prefHeight="31.0" prefWidth="181.0" text="Withdraw" />
+                                                            <TextField fx:id="tfjml" layoutX="225.0" layoutY="84.0" prefHeight="31.0" prefWidth="180.0" promptText="JUMLAH SALDO" />
                                                          </children>
                                                       </AnchorPane>
                                                    </children>
@@ -198,10 +201,13 @@
                                                             </AnchorPane>
                                                             <AnchorPane prefHeight="260.0" prefWidth="415.0">
                                                                <children>
-                                                                  <TextField fx:id="tfnewid_nasabah1" disable="true" layoutX="67.0" layoutY="29.0" prefHeight="31.0" prefWidth="278.0" promptText="ID NASABAH" />
-                                                                  <TextField fx:id="tfnewnomorrekening1" disable="true" layoutX="67.0" layoutY="77.0" prefHeight="31.0" prefWidth="278.0" promptText="NOMOR REKENIG BARU" />
-                                                                  <TextField fx:id="tfnewsaldo1" layoutX="67.0" layoutY="130.0" prefHeight="31.0" prefWidth="278.0" promptText="SALDO REKENIG BARU" />
-                                                                  <Button fx:id="btnnewrekening1" layoutX="67.0" layoutY="186.0" mnemonicParsing="false" onAction="#handleAddNewNasabahBTN1" prefHeight="31.0" prefWidth="278.0" text="Tambah Rekening Baru" />
+                                                                  <TextField fx:id="tfnewid_nasabah1" disable="true" layoutX="14.0" layoutY="36.0" prefHeight="31.0" prefWidth="195.0" promptText="ID NASABAH" />
+                                                                  <TextField fx:id="tfnewnomorrekening1" disable="true" layoutX="14.0" layoutY="84.0" prefHeight="31.0" prefWidth="195.0" promptText="NOMOR REKENIG BARU" />
+                                                                  <TextField fx:id="tfnewsaldo1" layoutX="14.0" layoutY="137.0" prefHeight="31.0" prefWidth="195.0" promptText="SALDO REKENIG BARU" />
+                                                                  <Button fx:id="btnnewrekening1" layoutX="14.0" layoutY="193.0" mnemonicParsing="false" onAction="#handleAddNewNasabahBTN1" prefHeight="31.0" prefWidth="195.0" text="Tambah Rekening Baru" />
+                                                                  <Button fx:id="btndepo1" layoutX="217.0" layoutY="137.0" mnemonicParsing="false" onAction="#handleDepositBTN1" prefHeight="31.0" prefWidth="181.0" text="Deposit" />
+                                                                  <Button fx:id="btnwd1" layoutX="217.0" layoutY="193.0" mnemonicParsing="false" onAction="#handleWithdrawBTN1" prefHeight="31.0" prefWidth="181.0" text="Withdraw" />
+                                                                  <TextField fx:id="tfjml1" layoutX="217.0" layoutY="84.0" prefHeight="31.0" prefWidth="180.0" promptText="JUMLAH SALDO" />
                                                                </children>
                                                             </AnchorPane>
                                                          </children>
